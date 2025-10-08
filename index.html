@@ -14,14 +14,17 @@
       display: flex;
       justify-content: center;
       align-items: center;
+      user-select: none;       /* 텍스트 선택 방지 */
     }
     img {
       max-width: 80%;
       height: auto;
+      -webkit-user-drag: none; /* 드래그 방지 */
+      pointer-events: none;    /* 마우스 이벤트 차단 */
     }
   </style>
 </head>
-<body>
+<body oncontextmenu="return false" ondragstart="return false" onselectstart="return false">
   <img src="그림2.png" alt="Urasil Lab Biomedical Engineering Logo">
 </body>
 </html>
