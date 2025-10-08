@@ -3,78 +3,27 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Urasil Lab</title>
+<title>Urasil Lab - Fade Image</title>
 <style>
   :root {
-    --fade-duration: 6s; /* 중앙 이미지 페이드 주기 */
-    --img-size: clamp(160px, 18vw, 420px);
+    --fade-duration: 6s; /* 페이드 속도 */
+    --img-size: clamp(160px, 20vw, 420px);
   }
 
   html, body {
     margin: 0;
     height: 100%;
     background: #0b0b12;
-    color: white;
-    font-family: 'Segoe UI', sans-serif;
-    overflow-x: hidden;
-  }
-
-  /* ===== 상단 로고 헤더 ===== */
-  .site-header {
-    position: fixed;
-    top: 0; left: 0;
-    width: 100%;
-    height: 90px;
-    display: flex;
-    align-items: center;
-    padding: 0 60px;
-    background: rgba(0, 0, 0, 0.25);
-    backdrop-filter: blur(12px);
-    opacity: 0;
-    animation: fadeInLogo 3s ease forwards;
-    z-index: 1000;
-  }
-
-  @keyframes fadeInLogo {
-    0% { opacity: 0; transform: translateY(-10px); }
-    100% { opacity: 1; transform: translateY(0); }
-  }
-
-  .logo {
-    height: 46px;
-    width: auto;
-    user-select: none;
-    pointer-events: none;
-  }
-
-  /* ===== 메인 섹션 ===== */
-  .hero {
-    position: relative;
-    min-height: 100dvh;
     display: grid;
     place-items: center;
-    overflow: hidden;
-    isolation: isolate;
   }
 
-  .hero::before {
-    content: "";
-    position: absolute;
-    inset: 0;
-    background:
-      radial-gradient(1200px 800px at 60% 70%, rgba(80,40,120,.25), rgba(0,0,0,0)),
-      #090a10 url("./bg.png") center/cover no-repeat;
-    z-index: -1;
-  }
-
-  /* ===== 중앙 이미지 페이드 ===== */
   .center-img {
     width: var(--img-size);
     height: auto;
     display: block;
-    filter: drop-shadow(0 8px 24px rgba(0,0,0,.45));
+    filter: drop-shadow(0 8px 24px rgba(0,0,0,0.45));
     animation: fadeCycle var(--fade-duration) ease-in-out infinite;
-    will-change: opacity, transform;
   }
 
   @keyframes fadeCycle {
@@ -84,19 +33,327 @@
     100% { opacity: 0; transform: scale(1.02); }
   }
 
-  @media (prefers-reduced-motion: reduce) {
-    .center-img { animation: none; opacity: 1; }
-    .site-header { animation: none; opacity: 1; }
+
+  /* ===== Theme ===== */
+  :root{
+    --bg: #0b0b12;
+    --panel: rgba(255,255,255,0.04);
+    --panel-2: rgba(255,255,255,0.06);
+    --text: #e9ecf3;
+    --muted: #b9c0d0;
+    --primary: #a96bff;   /* 보라 */
+    --accent:  #ff2c8a;   /* 핑크 */
+    --link:    #8bb7ff;   /* 파랑 */
+    --radius:  16px;
+    --shadow:  0 12px 40px rgba(0,0,0,.35);
+    --header-h: 84px;
+    --hero-img: clamp(220px, 30vw, 520px);
   }
+  *{box-sizing:border-box}
+  html,body{margin:0;height:100%;background:var(--bg);color:var(--text);font-family:system-ui,-apple-system,Segoe UI,Roboto,Pretendard,Arial,sans-serif}
+  a{color:var(--link);text-decoration:none}
+  a:hover{text-decoration:underline}
+  img{max-width:100%;height:auto}
+
+  /* ===== Background ===== */
+  .bg{position:fixed;inset:0;z-index:-2;
+    background:
+      radial-gradient(1200px 800px at 60% 70%, rgba(80,40,120,.25), rgba(0,0,0,0)),
+      #090a10 url("./bg.png") center/cover no-repeat;
+  }
+
+  /* ===== Header & Nav ===== */
+  .header{
+    position:sticky;top:0;z-index:50;height:var(--header-h);
+    display:flex;align-items:center;justify-content:space-between;gap:16px;
+    padding:0 28px;background:rgba(0,0,0,.35);backdrop-filter:blur(12px);
+    border-bottom:1px solid rgba(255,255,255,0.06);
+  }
+  .brand{display:flex;align-items:center;gap:14px}
+  .brand img{height:42px;width:auto}
+  .brand .name{font-weight:800;letter-spacing:.2px}
+  .nav{display:flex;gap:18px;align-items:center}
+  .nav a{color:var(--text);opacity:.9}
+  .nav a.active,.nav a:hover{color:white}
+  .menu-btn{display:none}
+
+  /* ===== Hero ===== */
+  .hero{min-height:calc(100dvh - var(--header-h));display:grid;place-items:center;padding:24px}
+  .hero-inner{display:grid;place-items:center;gap:18px;text-align:center;max-width:980px}
+  .main-img{width:var(--hero-img);filter:drop-shadow(0 18px 48px rgba(0,0,0,.55));animation:floaty 7s ease-in-out infinite}
+  @keyframes floaty{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
+  .title{font-size:clamp(28px,4.6vw,52px);font-weight:900;margin:6px 0 0}
+  .subtitle{font-size:clamp(16px,2.2vw,18px);opacity:.9;margin:2px 0 0}
+  .cta-row{display:flex;gap:12px;flex-wrap:wrap;justify-content:center;margin-top:14px}
+  .btn{
+    display:inline-flex;align-items:center;gap:8px;
+    padding:12px 18px;border-radius:12px;font-weight:700;border:1px solid rgba(255,255,255,.12);
+    background:linear-gradient(90deg,var(--accent),#7b3ff3,#1ea1ff);color:#111;box-shadow:var(--shadow)
+  }
+  .btn.secondary{background:var(--panel);color:var(--text);box-shadow:none}
+
+  /* ===== Sections ===== */
+  .section{padding:64px 20px}
+  .container{max-width:1100px;margin:0 auto}
+  .section h2{font-size:clamp(22px,3.2vw,28px);margin:0 0 16px}
+  .section p.lead{color:var(--muted);margin:0 0 24px}
+
+  /* Cards grid */
+  .grid{display:grid;gap:16px}
+  .grid.cols-3{grid-template-columns:repeat(3,minmax(0,1fr))}
+  .grid.cols-2{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .card{
+    background:var(--panel);border:1px solid rgba(255,255,255,0.08);border-radius:var(--radius);
+    padding:18px;box-shadow:var(--shadow)
+  }
+  .card h3{margin:0 0 8px;font-size:18px}
+  .meta{color:var(--muted);font-size:14px}
+
+  /* People */
+  .person{display:flex;gap:14px;align-items:center}
+  .avatar{width:64px;height:64px;border-radius:50%;background:var(--panel-2)}
+
+  /* Publications list */
+  .pub{padding:14px;border-radius:12px;background:var(--panel)}
+  .pub b{color:#fff}
+
+  /* Footer */
+  .footer{padding:28px 20px;border-top:1px solid rgba(255,255,255,.06);text-align:center;color:var(--muted)}
+
+  /* Mobile */
+  @media (max-width: 880px){
+    .nav{display:none}
+    .menu-btn{display:inline-flex;align-items:center;gap:6px;color:var(--text);opacity:.9;border:1px solid rgba(255,255,255,.12);border-radius:10px;padding:8px 10px;background:var(--panel)}
+    .grid.cols-3{grid-template-columns:1fr}
+    .grid.cols-2{grid-template-columns:1fr}
+  }
+  .mobile-drawer{position:fixed;inset:0 0 0 auto;width:min(86vw,340px);background:#0f1018;border-left:1px solid rgba(255,255,255,.08);transform:translateX(100%);transition:transform .28s ease;z-index:60;padding:18px}
+  .drawer-open .mobile-drawer{transform:translateX(0)}
+  .drawer-link{display:block;padding:12px;border-radius:10px;color:var(--text)}
+  .drawer-link:hover{background:var(--panel)}
 </style>
 </head>
 <body>
 
+<!-- 배경 (선택 이미지가 없으면 어두운 단색만 보입니다) -->
+<div class="bg" aria-hidden="true"></div>
 
-  <!-- 메인 섹션 -->
-  <main class="hero">
-    <img class="center-img" src="./center.png" alt="Urasil gradient emblem" />
-  </main>
+<!-- ===== Header ===== -->
+<header class="header">
+  <div class="brand">
+    <!-- EDIT: 상단 로고 파일 -->
+    <img src="./logo.png" alt="Uracil Lab logo" />
+    <div class="name">Uracil Lab</div>
+  </div>
+  <nav class="nav" aria-label="Primary">
+    <a href="#about">About</a>
+    <a href="#projects">Projects</a>
+    <a href="#people">People</a>
+    <a href="#publications">Publications</a>
+    <a href="#news">News</a>
+    <a href="#contact">Contact</a>
+  </nav>
+  <button class="menu-btn" id="menuBtn" aria-controls="drawer" aria-expanded="false">메뉴</button>
+</header>
 
+<!-- Mobile Drawer -->
+<aside class="mobile-drawer" id="drawer" aria-hidden="true">
+  <nav>
+    <a class="drawer-link" href="#about">About</a>
+    <a class="drawer-link" href="#projects">Projects</a>
+    <a class="drawer-link" href="#people">People</a>
+    <a class="drawer-link" href="#publications">Publications</a>
+    <a class="drawer-link" href="#news">News</a>
+    <a class="drawer-link" href="#contact">Contact</a>
+  </nav>
+</aside>
+
+<!-- ===== Hero (메인 이미지) ===== -->
+<section class="hero" id="home">
+  <div class="hero-inner">
+    <!-- EDIT: 메인 이미지 교체 가능 -->
+    <img class="main-img" src="./center.png" alt="Uracil Lab main gradient image" />
+    <!-- EDIT: 타이틀/서브타이틀 -->
+    <h1 class="title">Uracil Lab</h1>
+    <p class="subtitle">Biomedical Engineering · Vascularized Tissue Systems</p>
+    <div class="cta-row">
+      <a class="btn" href="#projects">Explore Projects</a>
+      <a class="btn secondary" href="#contact">Get in Touch</a>
+    </div>
+  </div>
+</section>
+
+<!-- ===== About ===== -->
+<section class="section" id="about">
+  <div class="container">
+    <h2>About</h2>
+    <p class="lead">
+      <!-- EDIT: 연구실 소개 -->
+      Uracil Lab은 혈관화 조직과 인공장기 공학을 중심으로, 엔지니어링 기반의 생체모사 플랫폼을 연구합니다.
+      미세혈관 형성, 관류(bioreactor) 설계, 면역/간질 상호작용을 통합하여 두꺼운 조직의 생존성과 기능을 향상시키는 데 집중합니다.
+    </p>
+    <div class="grid cols-3">
+      <div class="card">
+        <h3>Focus 1</h3>
+        <p class="meta">Endothelial-pericyte co-culture, vasculogenesis & angiogenesis</p>
+      </div>
+      <div class="card">
+        <h3>Focus 2</h3>
+        <p class="meta">Perfusion bioreactor & oxygenation strategy</p>
+      </div>
+      <div class="card">
+        <h3>Focus 3</h3>
+        <p class="meta">Vascularized graft integration & in vivo remodeling</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== Projects ===== -->
+<section class="section" id="projects">
+  <div class="container">
+    <h2>Projects</h2>
+    <p class="lead">현재 진행 중인 대표 과제를 소개합니다.</p>
+    <div class="grid cols-3">
+      <article class="card">
+        <h3><!-- EDIT --> Collagen Scaffold Vasculature</h3>
+        <p class="meta">EC/Pericyte/Smooth muscle tri-culture · Flow 1–3 mL/min</p>
+        <p>콜라겐 수축 최소화와 개방/폐쇄형 유동의 병행 최적화를 목표로 합니다.</p>
+      </article>
+      <article class="card">
+        <h3><!-- EDIT --> Placenta-like Open System</h3>
+        <p class="meta">반개방형 혈류 모델 · 산소전달 최적화</p>
+        <p>태반 유사 구조를 이용하여 두꺼운 조직 내 산소・영양 확산을 향상합니다.</p>
+      </article>
+      <article class="card">
+        <h3><!-- EDIT --> Re-circulating Media</h3>
+        <p class="meta">RBC 보강 · DO/PO₂ 모니터링</p>
+        <p>장기배양을 위한 재순환 배양액 설계 및 독성 축적 억제 전략을 개발합니다.</p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ===== People ===== -->
+<section class="section" id="people">
+  <div class="container">
+    <h2>People</h2>
+    <div class="grid cols-2">
+      <div class="card person">
+        <div class="avatar"><!-- EDIT: 인물 사진 64x64 --></div>
+        <div>
+          <h3><!-- EDIT --> PI · Your Name</h3>
+          <p class="meta">Tissue Engineering, Microvascular Systems</p>
+        </div>
+      </div>
+      <div class="card person">
+        <div class="avatar"></div>
+        <div>
+          <h3><!-- EDIT --> Research Assistant</h3>
+          <p class="meta">Bioreactor design, 3D culture</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== Publications ===== -->
+<section class="section" id="publications">
+  <div class="container">
+    <h2>Publications</h2>
+    <div class="grid">
+      <div class="pub">
+        <!-- EDIT: 논문 항목 복제해서 추가 -->
+        <b>[2024]</b> Your Name*, Co-author — <i>Title of the paper</i>, Journal Name.
+        <span class="meta">DOI: 10.xxxx/xxxx</span>
+      </div>
+      <div class="pub">
+        <b>[2023]</b> Your Name*, Co-author — <i>Another Work</i>, Journal/Conference.
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== News ===== -->
+<section class="section" id="news">
+  <div class="container">
+    <h2>News</h2>
+    <div class="grid">
+      <div class="card">
+        <!-- EDIT: 뉴스 항목 -->
+        <h3>2025-10-08</h3>
+        <p>Urasil Lab 홈페이지 오픈. 초기 프로젝트 페이지 공개.</p>
+      </div>
+      <div class="card">
+        <h3>2025-09-12</h3>
+        <p>관류 바이오리액터 v0.3 테스트 완료.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== Contact ===== -->
+<section class="section" id="contact">
+  <div class="container">
+    <h2>Contact</h2>
+    <p class="lead">협업/문의는 아래 폼 또는 이메일로 연락 주세요.</p>
+
+    <div class="grid cols-2">
+      <div class="card">
+        <!-- 간단 메일 링크: EDIT -->
+        <p><b>Email</b>: <a href="mailto:contact@urasil.lab">contact@urasil.lab</a></p>
+        <p><b>Location</b>: Seoul, Korea</p>
+        <p class="meta">※ 별도 백엔드가 없으므로, 아래 폼은 mailto를 사용합니다.</p>
+      </div>
+
+      <form class="card" action="mailto:contact@urasil.lab" method="post" enctype="text/plain">
+        <!-- EDIT: 수신 주소 바꾸기 -->
+        <label>이름<br><input name="name" required style="width:100%;padding:10px;border-radius:10px;border:1px solid rgba(255,255,255,.15);background:var(--panel-2);color:var(--text)"></label><br><br>
+        <label>이메일<br><input type="email" name="email" required style="width:100%;padding:10px;border-radius:10px;border:1px solid rgba(255,255,255,.15);background:var(--panel-2);color:var(--text)"></label><br><br>
+        <label>메시지<br><textarea name="message" rows="5" required style="width:100%;padding:10px;border-radius:10px;border:1px solid rgba(255,255,255,.15);background:var(--panel-2);color:var(--text)"></textarea></label><br><br>
+        <button class="btn" type="submit">Send</button>
+      </form>
+    </div>
+  </div>
+</section>
+
+<footer class="footer">
+  © <span id="y"></span> Uracil Lab — All rights reserved.
+</footer>
+
+<script>
+  // 현재년도
+  document.getElementById('y').textContent = new Date().getFullYear();
+
+  // 모바일 드로어
+  const body = document.body;
+  const btn = document.getElementById('menuBtn');
+  const drawer = document.getElementById('drawer');
+  const toggle = () => {
+    const open = body.classList.toggle('drawer-open');
+    btn.setAttribute('aria-expanded', open);
+    drawer.setAttribute('aria-hidden', !open);
+  };
+  btn.addEventListener('click', toggle);
+  drawer.addEventListener('click', e => { if(e.target.matches('a')) toggle(); });
+
+  // 부드러운 스크롤
+  document.querySelectorAll('a[href^="#"]').forEach(a=>{
+    a.addEventListener('click', e=>{
+      const id = a.getAttribute('href').slice(1);
+      const el = document.getElementById(id);
+      if(el){ e.preventDefault(); el.scrollIntoView({behavior:'smooth', block:'start'}); }
+    });
+  });
+
+  // 우클릭/드래그 방지 (원하면 제거)
+  window.addEventListener('contextmenu', e => e.preventDefault());
+  window.addEventListener('dragstart', e => e.preventDefault());
+
+</style>
+</head>
+<body>
+  <img class="center-img" src="./center.png" alt="Urasil Lab main image" />
 </body>
 </html>
+
