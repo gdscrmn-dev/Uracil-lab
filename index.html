@@ -3,37 +3,9 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Urasil Lab - Fade Image</title>
+<title>Uracil Lab · Biomedical Engineering</title>
+<meta name="description" content="Uracil Lab · Biomedical Engineering · Vascularized Tissue Systems" />
 <style>
-  :root {
-    --fade-duration: 6s; /* 페이드 속도 */
-    --img-size: clamp(160px, 20vw, 420px);
-  }
-
-  html, body {
-    margin: 0;
-    height: 100%;
-    background: #0b0b12;
-    display: grid;
-    place-items: center;
-  }
-
-  .center-img {
-    width: var(--img-size);
-    height: auto;
-    display: block;
-    filter: drop-shadow(0 8px 24px rgba(0,0,0,0.45));
-    animation: fadeCycle var(--fade-duration) ease-in-out infinite;
-  }
-
-  @keyframes fadeCycle {
-    0%   { opacity: 0; transform: scale(0.98); }
-    40%  { opacity: 1; transform: scale(1.00); }
-    60%  { opacity: 1; transform: scale(1.00); }
-    100% { opacity: 0; transform: scale(1.02); }
-  }
-
-
   /* ===== Theme ===== */
   :root{
     --bg: #0b0b12;
@@ -349,11 +321,6 @@
   // 우클릭/드래그 방지 (원하면 제거)
   window.addEventListener('contextmenu', e => e.preventDefault());
   window.addEventListener('dragstart', e => e.preventDefault());
-
-</style>
-</head>
-<body>
-  <img class="center-img" src="./center.png" alt="Urasil Lab main image" />
+</script>
 </body>
 </html>
-
