@@ -8,7 +8,7 @@
 <style>
   /* ===== Theme ===== */
   :root{
-    --intro-duration: 3000ms;          /* 인트로 전체 페이드 시간 */
+    --intro-duration: 1000ms;          /* 인트로 전체 페이드 시간 */
     --intro-img-cycle: 5000ms;         /* 인트로 이미지 페이드 인/아웃 주기 */
     --hero-img: clamp(220px, 20vw, 520px);
     --header-h: 84px;
@@ -50,7 +50,7 @@
   .intro.hidden{display:none}
 
   .intro .center-img{
-    width: clamp(160px, 22vw, 420px);
+    width: clamp(160px, 20vw, 420px);
     filter: drop-shadow(0 8px 24px rgba(0,0,0,.45));
     animation: centerCycle var(--intro-img-cycle) ease-in-out infinite;
   }
@@ -158,7 +158,7 @@
   <!-- ===== 연구실 메인(처음엔 숨김) ===== -->
   <header class="header">
     <div class="brand">
-      <img src="./logo.png"  />
+      <img src="./logo.png">
       <div class="name">Uracil Lab</div>
     </div>
     <nav class="nav" aria-label="Primary">
